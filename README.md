@@ -4,15 +4,16 @@ The [Blazor Gantt Chart](https://www.syncfusion.com/blazor-components/blazor-gan
 
 In this quick-start project, you can learn how to enable or disable selection, its modes, types, selection at initial rendering in the Syncfusion Gantt Chart in a Blazor WebAssembly application. You’ll also learn how to perform a selection programmatically on cells and rows. Also, you can learn how to disable selection on a particular record and clear all the selection at runtime in the Gantt Chart.
 
-Watch the video: Coming soon...
+## Prerequisites
 
-## Project prerequisites
-Make sure you have a compatible version of .NET Core on your machine before starting to work on this project. You also need the following:
-* [Visual Studio 2019 (version 16.6+)]( https://visualstudio.microsoft.com/downloads?utm_source=github&utm_medium=listing&utm_campaign=blazor-gantt-chart-github-samples)
-* [.NET Core SDK 3.1.3+](https://dotnet.microsoft.com/download/dotnet-core/3.1?utm_source=github&utm_medium=listing&utm_campaign=blazor-gantt-chart-github-samples)
+* Visual Studio 2022
 
-## How to run this application
-To run this application, you need to first clone or download the ‘perform selection in blazor gantt chart’ repository and then open it in Visual Studio 2019. Now, build and run your project to view the output.
+## How to run the project
+
+* Checkout this project to a location in your disk.
+* Open the solution file using the Visual Studio 2022.
+* Restore the NuGet packages by rebuilding the solution.
+* Run the project.
 
 ## Further help
 
