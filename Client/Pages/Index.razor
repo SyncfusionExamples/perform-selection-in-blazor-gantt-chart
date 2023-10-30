@@ -1,0 +1,151 @@
+﻿@page "/"
+
+<button @onclick="SelectRow">Select Row</button>
+<button @onclick="SelectRows">Select Rows</button>
+<button @onclick="GetSelectedData">Get Selected Data</button>
+<button @onclick="ClearSelection">Clear Selection</button>
+<br />
+<br />
+<SfGantt @ref="Gantt" DataSource="@TaskCollection" Height="480px" Width="900px" AllowSelection="true">
+    <GanttTaskFields Id="TaskId" Name="TaskName"
+                     StartDate="StartDate" EndDate="EndDate"
+                     Duration="Duration" Progress="Progress" ParentID="ParentId">
+    </GanttTaskFields>
+    <GanttColumns>
+        <GanttColumn Field="TaskId" Width="100"></GanttColumn>
+        <GanttColumn Field="TaskName" Width="250"></GanttColumn>
+        <GanttColumn Field="StartDate"></GanttColumn>
+        <GanttColumn Field="Duration"></GanttColumn>
+        <GanttColumn Field="Progress"></GanttColumn>
+    </GanttColumns>
+    <GanttSelectionSettings Type="Syncfusion.Blazor.Grids.SelectionType.Multiple"
+                            Mode="Syncfusion.Blazor.Grids.SelectionMode.Cell"
+                            EnableToggle="true"></GanttSelectionSettings>
+    <GanttEvents RowSelected="rowSelected" CellSelecting="cellSelecting" TValue="TaskData"></GanttEvents>
+</SfGantt>
+
+@code {
+
+    public SfGantt<TaskData> Gantt;
+
+    public List<TaskData> TaskCollection { get; set; }
+
+    protected override void OnInitialized()
+    {
+        this.TaskCollection = GetTaskCollection();
+    }
+
+    public void SelectRow()
+    {
+        this.Gantt.SelectRowAsync(2);
+    }
+
+    public void SelectRows()
+    {
+        this.Gantt.SelectRowsAsync(new int[] { 1, 2, 3 });
+    }
+
+    public void GetSelectedData()
+    {
+        var selectedRowIndexes = this.Gantt.GetSelectedRowIndexesAsync().Result.ToList();
+        var selectedRecords = this.Gantt.GetSelectedRecordsAsync().Result.ToList();
+    }
+
+    public void rowSelected(Syncfusion.Blazor.Grids.RowSelectEventArgs<TaskData> args)
+    {
+        var selectedRowData = args.Data;
+    }
+
+    public void cellSelecting(Syncfusion.Blazor.Grids.CellSelectingEventArgs<TaskData> args)
+    {
+        if (args.Data.TaskId == 2)
+        {
+            args.Cancel = true;
+        }
+    }
+
+    public void ClearSelection()
+    {
+        this.Gantt.ClearSelectionAsync();
+    }
+
+    public class TaskData
+    {
+        public int TaskId { get; set; }
+        public string TaskName { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public string Duration { get; set; }
+        public int Progress { get; set; }
+        public int? ParentId { get; set; }
+
+    }
+
+    public static List<TaskData> GetTaskCollection()
+    {
+        List<TaskData> Tasks = new List<TaskData>() {
+
+        new TaskData() {
+            TaskId = 1,
+            TaskName = "Project initiation",
+            StartDate = new DateTime(2019, 04, 02),
+            EndDate = new DateTime(2019, 04, 21)
+        },
+        new TaskData() {
+            TaskId = 2,
+            TaskName = "Identify Site location",
+            StartDate = new DateTime(2019, 04, 02),
+            Duration = "0",
+            Progress = 30,
+            ParentId = 1
+        },
+        new TaskData() {
+            TaskId = 3,
+            TaskName = "Perform soil test",
+            StartDate = new DateTime(2019, 04, 02),
+            Duration = "4",
+            Progress = 40,
+            ParentId = 1
+        },
+        new TaskData() {
+            TaskId = 4,
+            TaskName = "Soil test approval",
+            StartDate = new DateTime(2019, 04, 02),
+            Duration = "0",
+            Progress = 30,
+            ParentId = 1
+        },
+        new TaskData() {
+            TaskId = 5,
+            TaskName = "Project estimation",
+            StartDate = new DateTime(2019, 04, 02),
+            EndDate = new DateTime(2019, 04, 21)
+        },
+        new TaskData() {
+            TaskId = 6,
+            TaskName = "Develop floor plan for estimation",
+            StartDate = new DateTime(2019, 04, 04),
+            Duration = "3",
+            Progress = 30,
+            ParentId = 5
+        },
+        new TaskData() {
+            TaskId = 7,
+            TaskName = "List materials",
+            StartDate = new DateTime(2019, 04, 04),
+            Duration = "3",
+            Progress = 40,
+            ParentId = 5
+        },
+        new TaskData() {
+            TaskId = 8,
+            TaskName = "Project Estimation approval",
+            StartDate = new DateTime(2019, 04, 04),
+            Duration = "0",
+            Progress = 30,
+            ParentId = 5
+        }
+    };
+        return Tasks;
+    }
+}
